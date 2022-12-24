@@ -95,17 +95,17 @@ public class ManageView {
 					continue;
 				}
 				
-				list.stream().forEach(System.out::println);
+				//list.stream().forEach(System.out::println);
 			}else if(choice == 3) {
 				System.out.println("메인으로 돌아갑니다.");
 				return;
 			}else if(choice ==1 ) {
 				if(num <= 1) {
 					System.out.println("\n현재 첫 페이지입니다.");
+					list = mc.selectAllInstructor(num);
 					continue;
 				}
-				list = mc.selectAllInstructor(--num);
-				list.stream().forEach(System.out::println);
+				--num;
 			}
 			
 			
