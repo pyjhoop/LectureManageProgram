@@ -15,4 +15,23 @@
 		  		ORDER BY INSTRUCTOR_NO) E
 		WHERE NUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectLectureByKeyword">
+		SELECT *
+		  FROM TB_LECTURE
+		 WHERE LECTURE_NAME LIKE ?
+	</entry>
+	
+	<entry key="insertLecture">
+		INSERT 
+			INTO TB_LECTURE
+			VALUES(
+				    SEQ_LECNO.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ? 
+				  )
+	</entry>
 </properties>

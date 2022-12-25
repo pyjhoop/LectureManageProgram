@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.kh.controller.ManageController;
 import com.kh.model.vo.Instructor;
+import com.kh.model.vo.Lecture;
 
 public class ManageView {
 	Scanner sc = new Scanner(System.in);
@@ -52,10 +53,12 @@ public class ManageView {
 			case 4:
 				break;
 			case 5:
+				mc.selectLectureByKeyword(inputLectureName());
 				break;
 			case 6:
 				break;
 			case 7:
+				mc.insertLecture(inputLecture());
 				break;
 			case 8:
 				break;
@@ -84,7 +87,6 @@ public class ManageView {
 			int choice = sc.nextInt();
 			sc.nextLine();
 			
-			
 			if(choice == 2) {
 				list = mc.selectAllInstructor(++num);
 				
@@ -95,7 +97,6 @@ public class ManageView {
 					continue;
 				}
 				
-				//list.stream().forEach(System.out::println);
 			}else if(choice == 3) {
 				System.out.println("메인으로 돌아갑니다.");
 				return;
@@ -107,12 +108,36 @@ public class ManageView {
 				}
 				--num;
 			}
-			
-			
-			
 		}
 	}
 	
+	public String inputLectureName() {
+		System.out.println("\n == 이름 키워드로 강의 조회 == ");
+		System.out.print("이름 : ");
+		return sc.nextLine();
+	}
+	
+	public Lecture inputLecture() {
+		System.out.println("\n == 강의 추가 ==");
+		System.out.print("강의 타입 : ");
+		String type = sc.nextLine();
+		
+		System.out.print("강의 명 : ");
+		String name = sc.nextLine();
+		
+		System.out.print("가격 : ");
+		String price = sc.nextLine();
+		
+		System.out.print("수강시간 : ");
+		String courseTime = sc.nextLine();
+		
+		System.out.print("할인된 금액 : ");
+		int discount = sc.nextInt();
+		sc.nextLine();
+		
+		Lecture l = new Lecture(type, name, Integer.parseInt(price), courseTime, discount);
+		return l;
+	}
 
 	// ==========================display method===================
 
@@ -124,11 +149,19 @@ public class ManageView {
 		for(Instructor i: list) {
 			System.out.println(i);
 		}
-		
-
 	}
 
 	public void displayFail(String message) {
+		System.out.println("\n" + message);
+	}
+	
+	public void displayLecList(ArrayList<Lecture> list) {
+		for(Lecture l: list) {
+			System.out.println(l);
+		}
+	}
+	
+	public void displaySuccess(String message) {
 		System.out.println("\n" + message);
 	}
 }

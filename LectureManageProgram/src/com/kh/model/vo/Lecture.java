@@ -19,6 +19,15 @@ public class Lecture {
 		this.courseTime = courseTime;
 		this.discount = discount;
 	}
+	
+	public Lecture(String lectureType, String lectureName, int lecturePrice, String courseTime,
+			int discount) {
+		this.lectureType = lectureType;
+		this.lectureName = lectureName;
+		this.lecturePrice = lecturePrice;
+		this.courseTime = courseTime;
+		this.discount = discount;
+	}
 
 	public int getLectureNo() {
 		return lectureNo;

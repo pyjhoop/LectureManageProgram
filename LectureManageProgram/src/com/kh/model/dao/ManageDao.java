@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.model.vo.Instructor;
+import com.kh.model.vo.Lecture;
 
 public class ManageDao {
 	
@@ -55,5 +56,63 @@ public class ManageDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public ArrayList<Lecture> selectLectureByKeyword(Connection conn, String keyword){
+		ArrayList<Lecture> list = new ArrayList<Lecture>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectLectureByKeyword");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Lecture(rset.getInt("lecture_no"),
+									 rset.getString("lecture_type"),
+									 rset.getString("lecture_name"),
+									 rset.getInt("lecture_price"),
+									 rset.getString("coursetime"),
+									 rset.getInt("discount")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int insertLecture(Connection conn, Lecture l) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertLecture");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, l.getLectureType());
+			pstmt.setString(2, l.getLectureName());
+			pstmt.setInt(3, l.getLecturePrice());
+			pstmt.setString(4, l.getCourseTime());
+			pstmt.setInt(5, l.getDiscount());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
