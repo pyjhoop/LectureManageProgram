@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.model.service.ManageService;
 import com.kh.model.vo.Instructor;
 import com.kh.model.vo.Lecture;
+import com.kh.model.vo.Manager;
 import com.kh.view.ManageView;
 
 public class ManageController {
@@ -39,5 +40,14 @@ public class ManageController {
 		}else {
 			new ManageView().displayFail("강의추가가 실패했습니다.");
 		}
+	}
+	
+	public int login(String id, String pwd) {
+		int num = 0;
+		Manager m = new ManageService().login(id, pwd);
+		if(m != null) {
+			num = 1;
+		}
+		return num;
 	}
 }

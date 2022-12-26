@@ -34,4 +34,10 @@
 				  , ? 
 				  )
 	</entry>
+	
+	<entry key="login">
+		SELECT *
+		  FROM TB_MANAGER
+		  WHERE MANAGER_ID = ? AND MANAGER_PWD = ?
+	</entry>
 </properties>

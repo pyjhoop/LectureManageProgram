@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.kh.controller.ManageController;
 import com.kh.model.vo.Instructor;
 import com.kh.model.vo.Lecture;
+import com.kh.model.vo.Site;
 
 public class ManageView {
 	Scanner sc = new Scanner(System.in);
@@ -13,17 +14,26 @@ public class ManageView {
 	ManageController mc = new ManageController();
 
 	public void mainPage() {
-//		System.out.println("\n  == 프로그램 사용을 위해 로그인이 필요합니다 ==");
-//		
-//		System.out.print("아이디 입력 : ");
-//		String managerId = sc.nextLine();
-//		
-//		System.out.print("비밀번호 입력 : ");
-//		String managerPwd = sc.nextLine();
-
-		// 로그인 기능 구현...
+		
 
 		while (true) {
+			System.out.println("\n  == 프로그램 사용을 위해 로그인이 필요합니다 ==");
+			
+			System.out.print("아이디 입력 : ");
+			String managerId = sc.nextLine();
+			
+			System.out.print("비밀번호 입력 : ");
+			String managerPwd = sc.nextLine();
+			
+			int num = mc.login(managerId, managerPwd);
+			if(num == 1) {
+				System.out.println("\n == 로그인 성공 ==");
+			}else {
+				System.out.println("\n == 로그인 실패 ==");
+				continue;
+			}
+			
+			
 			System.out.println("\n   == 강의관련 관리 프로그램 ==");
 			System.out.println("┌───────────────────────────────┐");
 			System.out.println("│   1.  전체강사 조회     		│"); // 연준
@@ -75,6 +85,7 @@ public class ManageView {
 		}
 	}
 	
+	
 	public void selectAllInstructor() {
 		int num = 1;
 		ArrayList<Instructor> list = mc.selectAllInstructor(num);
@@ -86,6 +97,7 @@ public class ManageView {
 			System.out.print("입력 : ");
 			int choice = sc.nextInt();
 			sc.nextLine();
+			System.out.println("===================================");
 			
 			if(choice == 2) {
 				list = mc.selectAllInstructor(++num);
@@ -106,7 +118,7 @@ public class ManageView {
 					list = mc.selectAllInstructor(num);
 					continue;
 				}
-				--num;
+				list = mc.selectAllInstructor(--num);
 			}
 		}
 	}

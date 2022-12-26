@@ -12,6 +12,7 @@ import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.model.vo.Instructor;
 import com.kh.model.vo.Lecture;
+import com.kh.model.vo.Manager;
 
 public class ManageDao {
 	
@@ -114,5 +115,29 @@ public class ManageDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public Manager login(Connection conn, String id, String pwd) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Manager m = null;
+		
+		String sql = prop.getProperty("login");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Manager();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
 	}
 }
