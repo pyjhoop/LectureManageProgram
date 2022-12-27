@@ -1,6 +1,6 @@
 package com.kh.model.vo;
 
-public class Student extends Site{
+public class Student {
 	private int stuNo;
 	private String stuName;
 	private String stuId;

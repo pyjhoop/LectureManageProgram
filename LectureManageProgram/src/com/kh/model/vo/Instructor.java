@@ -1,6 +1,6 @@
 package com.kh.model.vo;
 
-public class Instructor extends Site {
+public class Instructor {
 	private int instructorNo;
 	private String instructorName;
 	private int salary;

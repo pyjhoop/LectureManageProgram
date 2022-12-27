@@ -2,42 +2,97 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>queryXml</comment>
-	<entry key="selectAllInstructor">
-		SELECT E.*
-		  FROM (SELECT 
-		  				ROWNUM AS NUM
-		  			  , INSTRUCTOR_NO
-		  			  , INSTRUCTOR_NAME
-		  			  , SALARY
-		  			  , LECTURE_NO
-		  			  ,RESIGNATION
-		  		FROM TB_INSTRUCTOR
-		  		ORDER BY INSTRUCTOR_NO) E
-		WHERE NUM BETWEEN ? AND ?
-	</entry>
+
+
+<entry key="selectAllStudent">
+	SELECT 
+		  STU_NO
+		, STUINFO_NO
+		, STU_ID
+		, STU_NAME
+		, STU_AGE
+		, GENDER
+		, PHONE
+		, LECTURE_NO
+	FROM TB_STUDENT
+	JOIN TB_STUDENTINFO USING (STU_NO)
+</entry>
+
+<entry key='insertLecture'>
+	INSERT 
+		INTO TB_LECTURE
+			VALUES
+			(
+				SEQ_LECNO.NEXTVAL
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+			)
+			
 	
-	<entry key="selectLectureByKeyword">
-		SELECT *
-		  FROM TB_LECTURE
-		 WHERE LECTURE_NAME LIKE ?
-	</entry>
-	
-	<entry key="insertLecture">
-		INSERT 
-			INTO TB_LECTURE
-			VALUES(
-				    SEQ_LECNO.NEXTVAL
-				  , ?
-				  , ?
-				  , ?
-				  , ?
-				  , ? 
-				  )
-	</entry>
-	
-	<entry key="login">
-		SELECT *
-		  FROM TB_MANAGER
-		  WHERE MANAGER_ID = ? AND MANAGER_PWD = ?
-	</entry>
+</entry>
+
+<entry key = 'insertInstructor'>
+	INSERT 
+		INTO TB_INSTRUCTOR 
+		VALUES
+			(
+				 SEQ_INSTRUCTOR.NEXTVAL
+			  , ?
+			  , ?
+			  , ?
+			  , ?
+			 )
+</entry>
+
+<entry key='updateInstructor'>
+	UPDATE TB_INSTRUCTOR
+    	SET RESIGNATION = '퇴사'
+	WHERE INSTRUCTOR_NO = ?
+</entry>
+
+<entry key='pasingStudentList'>
+	SELECT S.*
+	FROM (SELECT ROWNUM NUM, STU_NO, STUINFO_NO, STU_ID, STU_NAME, STU_AGE, GENDER, PHONE, LECTURE_NO
+      FROM TB_STUDENT
+      JOIN TB_STUDENTINFO USING (STU_NO)) S
+	WHERE NUM BETWEEN ? AND ?
+</entry>
+
+
+<entry key='getCount'>
+	SELECT COUNT(STU_NO) COUNT 
+	FROM TB_STUDENT
+</entry>
+
+<entry key='login'>
+	SELECT MANAGER_NAME
+	FROM TB_MANAGER
+	WHERE MANAGER_ID = ? AND MANAGER_PWD = ?
+</entry>
+
 </properties>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 package com.kh.model.vo;
 
-public class Manager extends Site{
+public class Manager {
 	private int managerNo;
 	private String managerName;
 	private String managerId;

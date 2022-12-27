@@ -1,6 +1,6 @@
 package com.kh.model.vo;
 
-public class Lecture extends Site{
+public class Lecture {
 	private int lectureNo;
 	private String lectureType;
 	private String lectureName;
@@ -13,15 +13,6 @@ public class Lecture extends Site{
 	public Lecture(int lectureNo, String lectureType, String lectureName, int lecturePrice, String courseTime,
 			int discount) {
 		this.lectureNo = lectureNo;
-		this.lectureType = lectureType;
-		this.lectureName = lectureName;
-		this.lecturePrice = lecturePrice;
-		this.courseTime = courseTime;
-		this.discount = discount;
-	}
-	
-	public Lecture(String lectureType, String lectureName, int lecturePrice, String courseTime,
-			int discount) {
 		this.lectureType = lectureType;
 		this.lectureName = lectureName;
 		this.lecturePrice = lecturePrice;
