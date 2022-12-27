@@ -34,4 +34,95 @@
 				  , ? 
 				  )
 	</entry>
+	
+	<entry key="login">
+		SELECT *
+		  FROM TB_MANAGER
+		  WHERE MANAGER_ID = ? AND MANAGER_PWD = ?
+	</entry>
+	
+	<!-- 인호 -->
+	
+	<entry key="selectAll">
+	SELECT INSTRUCTOR_NO,INSTRUCTOR_NAME,SALARY,LECTURE_NO,RESIGNATION, LECTURE_NAME, LECTURE_PRICE
+		FROM TB_INSTRUCTOR
+		JOIN TB_LECTURE USING (LECTURE_NO)
+		ORDER BY 1
+	</entry>
+	<entry key = "selectName">
+		SELECT INSTRUCTOR_NO,INSTRUCTOR_NAME,SALARY,LECTURE_NO,RESIGNATION
+			FROM TB_INSTRUCTOR
+			WHERE INSTRUCTOR_NAME = ?
+			ORDER BY 1
+	</entry>
+
+	<entry key = "deleteLecture">
+		DELETE FROM TB_LECTURE
+		WHERE LECTURE_NO = ?
+	</entry>
+	
+	<!-- 진원 -->
+	<entry key="selectAllStudent">
+	SELECT 
+		  STU_NO
+		, STUINFO_NO
+		, STU_ID
+		, STU_NAME
+		, STU_AGE
+		, GENDER
+		, PHONE
+		, LECTURE_NO
+	FROM TB_STUDENT
+	JOIN TB_STUDENTINFO USING (STU_NO)
+	</entry>
+	
+	<entry key='insertLecture'>
+		INSERT 
+			INTO TB_LECTURE
+				VALUES
+				(
+					SEQ_LECNO.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				)
+				
+		
+	</entry>
+	
+	<entry key = 'insertInstructor'>
+		INSERT 
+			INTO TB_INSTRUCTOR 
+			VALUES
+				(
+					 SEQ_INSTRUCTOR.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				 )
+	</entry>
+	
+	<entry key='updateInstructor'>
+		UPDATE TB_INSTRUCTOR
+	    	SET RESIGNATION = '퇴사'
+		WHERE INSTRUCTOR_NO = ?
+	</entry>
+	
+	<entry key='pasingStudentList'>
+		SELECT S.*
+		FROM (SELECT ROWNUM NUM, STU_NO, STUINFO_NO, STU_ID, STU_NAME, STU_AGE, GENDER, PHONE, LECTURE_NO
+	      FROM TB_STUDENT
+	      JOIN TB_STUDENTINFO USING (STU_NO)) S
+		WHERE NUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<entry key='getCount'>
+		SELECT COUNT(STU_NO) COUNT 
+		FROM TB_STUDENT
+	</entry>
+	
 </properties>

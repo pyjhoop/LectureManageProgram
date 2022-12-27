@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
+
+import com.kh.model.vo.All;
 import com.kh.model.vo.Instructor;
 import com.kh.model.vo.Lecture;
+import com.kh.model.vo.Manager;
 
 public class ManageDao {
 	
@@ -115,4 +118,139 @@ public class ManageDao {
 		}
 		return result;
 	}
+	public Manager login(Connection conn, String id, String pwd) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Manager m = null;
+		
+		String sql = prop.getProperty("login");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Manager();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	//===================인호============================
+	public ArrayList<All> selectAll(Connection conn){
+		ArrayList<All> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAll");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new All(rset.getInt("INSTRUCTOR_NO"),
+						 rset.getString("INSTRUCTOR_NAME"),
+						 rset.getInt("SALARY"),
+						 rset.getInt("LECTURE_NO"),
+						 rset.getString("RESIGNATION"),
+						 rset.getString("LECTURE_NAME"),
+						 rset.getInt("LECTURE_PRICE")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Instructor> selectName(Connection conn,String name){
+		ArrayList<Instructor> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Instructor(rset.getInt("INSTRUCTOR_NO"),
+						 rset.getString("INSTRUCTOR_NAME"),
+						 rset.getInt("SALARY"),
+						 rset.getInt("LECTURE_NO"),
+						 rset.getString("RESIGNATION")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int deleteLecture(Connection conn,int lNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteLecture");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, lNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	//===============진원===========================
+	public int insertLecture(Connection conn, String type, String lecName, int price, String courseTime,
+			int resultPrice) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertLecture");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, type);
+			pstmt.setString(2, lecName);
+			pstmt.setInt(3, price);
+			pstmt.setString(4, courseTime);
+			pstmt.setInt(5, resultPrice);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+	
+	
+	
 }
