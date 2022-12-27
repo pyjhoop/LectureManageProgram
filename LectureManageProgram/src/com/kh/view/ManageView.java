@@ -217,65 +217,72 @@ public class ManageView {
 	}
 	
 	public void page(ArrayList list) {
-		int count = 0;
-		int sum = 0;
-		while(true) {
-			if(count<5) {
-			System.out.println("page 1");
-			}else {
-				System.out.println("page " + (count/5+1));
-			}
-		while(true) {
-			boolean flag = true;
-			System.out.println(list.get(count));
-			count++;
-			if(count% 5==0 || count == list.size()) {
-				while(flag) {
-				System.out.println("1) 이전 페이지 2) 다음 페이지 3) 메인메뉴로 가기 ");
-				int num = sc.nextInt();
-				sc.nextLine();
-				if(num == 1) {
-					if(count <= 5) {
-						System.out.println("현재 첫 페이지입니다.");
-						continue;
-					} else if(count > 5) {
-						flag = false;
-						sum = 1;
-					}
-					
-				}else if(num == 2) {
-					if(count == list.size()) {
-						System.out.println("마지막 페이지입니다.");
-						continue;
-					} else {
-						System.out.println("page " + (count/5+1));
-						flag = false;
-						sum = 2;
-					}
-				} else if(num == 3) {
-					return;
-				} else {
-					System.out.println("잘못 입력했습니다.");
-				}
-			}
-		}
-			if(sum == 1) {
-				if(count == list.size()) {
-					count = count-(list.size()%5+5);
-					sum = 0;
-					break;
-				}else {
-				count = count - 10;
-				sum = 0;
-			     break;
-				}
-			} else if(sum ==2){
-				sum =0;
-				continue;
-			}
-	}
-	}
-	}
+	      int count = 0;
+	      int sum = 0;
+	      while(true) {
+	         if(count<5) {
+	         System.out.println("page 1");
+	         }else {
+	            System.out.println("page " + (count/5+1));
+	         }
+	      while(true) {
+	         boolean flag = true;
+	         System.out.println(list.get(count));
+	         count++;
+	         if(count% 5==0 || count == list.size()) {
+	            while(flag) {
+	            System.out.println("1) 이전 페이지 2) 다음 페이지 3) 메인메뉴로 가기 ");
+	            int num = sc.nextInt();
+	            sc.nextLine();
+	            if(num == 1) {
+	               if(count <= 5) {
+	                  System.out.println("현재 첫 페이지입니다.");
+	                  continue;
+	               } else if(count > 5) {
+	                  flag = false;
+	                  sum = 1;
+	               }
+	               
+	            }else if(num == 2) {
+	               if(count == list.size()) {
+	                  System.out.println("마지막 페이지입니다.");
+	                  continue;
+	               } else {
+	                  System.out.println("page " + (count/5+1));
+	                  flag = false;
+	                  sum = 2;
+	               }
+	            } else if(num == 3) {
+	               return;
+	            } else {
+	               System.out.println("잘못 입력했습니다.");
+	            }
+	         }
+	      }
+	         if(sum == 1) {
+	            if(count == list.size()) {
+	               if(list.size()%5==0) {
+	                  count = count - 10;
+	                  sum = 0;
+	                 break;
+	               }else {
+	               count = count-(list.size()%5+5);
+	               sum = 0;
+	               break;
+	               }
+	            }else {
+	               count = count - 10;
+	               sum = 0;
+	              break;
+	            }
+	         } else if(sum ==2){
+	            sum =0;
+	            continue;
+	         }
+	   }
+	   }
+	   }
+	
 	
 	
 	//====================진원=======================
@@ -360,9 +367,9 @@ public class ManageView {
 			
 			totalPage = count / 5; // 총 페이지 수 구하기
 			
-			if (totalPage % countlist > 0) { // 게시물 초과하면 페이지수 보정
-				totalPage++;
-			}
+			if (count % countlist > 0) { // 게시물 초과하면 페이지수 보정
+	            totalPage++;
+	         }
 			
 			System.out.println();
 			System.out.println("─────────────────────────────────────────────────────────────────────────────────────────────");
