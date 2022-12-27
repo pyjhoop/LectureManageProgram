@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>queryXml</comment>
+	<entry key="selectAllInstructor">
+		SELECT E.*
+		  FROM (SELECT 
+		  				ROWNUM AS NUM
+		  			  , INSTRUCTOR_NO
+		  			  , INSTRUCTOR_NAME
+		  			  , SALARY
+		  			  , LECTURE_NO
+		  			  ,RESIGNATION
+		  		FROM TB_INSTRUCTOR
+		  		ORDER BY INSTRUCTOR_NO) E
+		WHERE NUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectLectureByKeyword">
+		SELECT *
+		  FROM TB_LECTURE
+		 WHERE LECTURE_NAME LIKE ?
+	</entry>
+	
+	<entry key="insertLecture">
+		INSERT 
+			INTO TB_LECTURE
+			VALUES(
+				    SEQ_LECNO.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ? 
+				  )
+	</entry>
+</properties>
